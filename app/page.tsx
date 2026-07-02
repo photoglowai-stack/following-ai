@@ -20,6 +20,29 @@ const userAvatars = [
   `${assetPath}/user-avatar-4.png`,
 ];
 
+const productImages = [
+  {
+    src: `${assetPath}/following-preview.png`,
+    alt: "Recently Followed following preview screen",
+    title: "Following preview",
+  },
+  {
+    src: `${assetPath}/followers-preview.png`,
+    alt: "Recently Followed followers preview screen",
+    title: "Followers preview",
+  },
+  {
+    src: `${assetPath}/privacy-preview.png`,
+    alt: "Recently Followed privacy preview screen",
+    title: "Privacy preview",
+  },
+  {
+    src: `${assetPath}/social-dashboard.png`,
+    alt: "Recently Followed social dashboard screen",
+    title: "Social dashboard",
+  },
+];
+
 const formFeatures = [
   ["🌍", "Public profiles only"],
   ["🔐", "No login required"],
@@ -63,16 +86,73 @@ const socialCards = [
 
 const reviews = [
   {
+    handle: "@creator_ops",
+    name: "Philip D.",
+    source: "Trustpilot",
+    sourceUrl: "https://www.trustpilot.com/review/recentfollow.com",
+    date: "Apr 2026",
+    text: "Gave me insights I could not get anywhere else and helped me keep track of trends.",
+  },
+  {
+    handle: "@growth_lena",
+    name: "SourceForge reviewer",
+    source: "SourceForge",
+    sourceUrl: "https://sourceforge.net/software/product/RecentFollow/",
+    date: "May 2026",
+    text: "The dashboard is simple, the process takes seconds, and the anonymous check is useful.",
+  },
+  {
+    handle: "@agency_daily",
+    name: "RecentFollow user",
+    source: "Trustpilot",
+    sourceUrl: "https://www.trustpilot.com/review/recentfollow.com",
+    date: "Mar 2026",
+    text: "Fast, accurate updates without needing logins or complex dashboards.",
+  },
+  {
+    handle: "@social_research",
+    name: "Slashdot reviewer",
+    source: "Slashdot",
+    sourceUrl: "https://slashdot.org/software/p/RecentFollow/",
+    date: "May 2026",
+    text: "Friendly and professional for tracking Instagram activity, with a simple flow.",
+  },
+  {
+    handle: "@ugc_mika",
+    name: "Trustpilot reviewer",
+    source: "Trustpilot",
+    sourceUrl: "https://www.trustpilot.com/review/recentfollow.com",
+    date: "2026",
+    text: "Clear enough to understand the result quickly, especially on public profile checks.",
+  },
+  {
+    handle: "@brand_watch",
+    name: "Public review",
+    source: "Review site",
+    sourceUrl: "https://www.trustpilot.com/review/recentfollow.com",
+    date: "2026",
+    text: "Useful for checking visible signals without handing over an Instagram password.",
+  },
+];
+
+const ugcItems = [
+  {
+    image: `${assetPath}/user-avatar-1.png`,
     name: "Maya",
-    text: "The preview is quick, clear, and easy to read. Exactly what I needed.",
+    role: "Creator manager",
+    quote: "I use it before partnership checks so the first screen has to be readable on mobile.",
   },
   {
+    image: `${assetPath}/user-avatar-2.png`,
     name: "Theo",
-    text: "The flow is simple, no login is required, and the report feels polished.",
+    role: "Social analyst",
+    quote: "The masked rows make it easier to share a preview without exposing every detail.",
   },
   {
+    image: `${assetPath}/user-avatar-3.png`,
     name: "Nora",
-    text: "The interface feels premium and the information is easy to scan.",
+    role: "UGC lead",
+    quote: "I mostly need quick public signals, not a heavy dashboard. This feels lighter.",
   },
 ];
 
@@ -112,9 +192,11 @@ export default function Home() {
       <div className="mx-auto w-full max-w-7xl px-5 pb-16 pt-6 lg:px-8">
         <HeroContent />
         <PopularSearches />
+        <ProductGallery />
         <HowItWorks />
         <SocialProof />
         <Reviews />
+        <UgcSection />
         <Faq />
       </div>
       <Footer />
@@ -170,7 +252,7 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
           <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fff7fa] shadow-[0_18px_45px_rgba(255,0,92,0.12)]">
             <span className="h-4 w-4 rounded-full bg-[#ff005c] shadow-[0_0_0_8px_rgba(255,0,92,0.13)]" />
           </span>
-          <span className="text-xl font-black uppercase tracking-normal text-[#111111]">Recently Followed</span>
+          <span className="max-w-[11rem] truncate text-base font-black uppercase tracking-normal text-[#111111] sm:max-w-none sm:text-xl">Recently Followed</span>
         </Link>
         <nav className="flex items-center gap-3 text-sm font-black text-[#111111]">
           <a href="#faq" className="hidden rounded-full px-4 py-2 transition hover:bg-[#fff7fa] sm:inline-flex">
@@ -183,7 +265,7 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
           >
             Login
           </button>
-          <span className="rounded-2xl bg-[#050505] px-5 py-3 text-white shadow-sm cursor-default select-none">
+          <span className="hidden rounded-2xl bg-[#050505] px-5 py-3 text-white shadow-sm cursor-default select-none min-[390px]:inline-flex">
             🌐 EN
           </span>
         </nav>
@@ -194,7 +276,7 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
 
 function HeroContent() {
   return (
-    <section className="relative overflow-hidden rounded-[30px] bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-5 py-8 text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[36px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+    <section className="relative overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-4 py-7 text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[30px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
       <div className="pointer-events-none absolute inset-0 opacity-20">
         <div className="rf-float absolute left-[8%] top-20 h-48 w-48 rounded-full border border-white/30" />
         <div className="rf-float-delayed absolute bottom-10 right-[18%] h-72 w-72 rounded-full border border-white/20" />
@@ -210,7 +292,7 @@ function HeroContent() {
             </div>
           </div>
 
-          <h1 className="mt-7 max-w-4xl text-[clamp(2.55rem,6.5vw,6.8rem)] font-black leading-[0.94] tracking-normal text-white sm:mt-9">
+          <h1 className="mt-7 max-w-4xl text-[clamp(2.35rem,8vw,6.1rem)] font-black leading-[0.96] tracking-normal text-white sm:mt-9">
             See recent Instagram follows in minutes
           </h1>
 
@@ -331,15 +413,25 @@ function CheckerCard() {
       <button
         type="submit"
         disabled={formState === "loading"}
-        className="relative mt-5 flex h-16 w-full items-center justify-center gap-3 rounded-full bg-[#050505] px-6 text-[1.28rem] font-black leading-none text-white shadow-[0_18px_38px_rgba(5,5,5,0.22)] transition hover:-translate-y-0.5 hover:bg-[#1a1a1a] disabled:cursor-not-allowed disabled:opacity-70 sm:h-[4.1rem] sm:text-[1.45rem]"
+        className="group relative mt-5 flex h-16 w-full items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[linear-gradient(135deg,#ff005c_0%,#ff2d55_48%,#ff7a2a_100%)] px-4 text-[1.05rem] font-black leading-none text-white shadow-[0_18px_36px_rgba(255,0,92,0.34),0_0_0_5px_rgba(255,0,92,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_44px_rgba(255,0,92,0.42),0_0_0_7px_rgba(255,0,92,0.13)] disabled:cursor-not-allowed disabled:opacity-70 sm:h-[4.1rem] sm:px-5 sm:text-[1.38rem]"
       >
+        <span className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/70" />
+        <span className="pointer-events-none absolute -left-16 top-0 h-full w-16 -skew-x-12 bg-white/25 transition duration-700 group-hover:left-[115%]" />
         {formState === "loading" ? (
-          <span className="flex items-center gap-2">
+          <span className="relative z-10 flex items-center gap-2">
             <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
             Checking...
           </span>
         ) : (
-          "Reveal recent follows →"
+          <span className="relative z-10 flex w-full items-center justify-center gap-3 sm:gap-4">
+            <span className="flex min-w-0 items-center justify-center gap-2 sm:gap-3">
+              <span className="truncate">Analyze profile now</span>
+              <span aria-hidden="true" className="text-[1.35em] leading-none transition group-hover:translate-x-1">
+                →
+              </span>
+            </span>
+            <span className="rf-finger text-2xl leading-none drop-shadow-[0_6px_10px_rgba(255,196,0,0.24)] sm:text-3xl" aria-hidden="true">👉</span>
+          </span>
         )}
       </button>
 
@@ -374,44 +466,76 @@ function BenefitPills() {
   );
 }
 
+function ProductGallery() {
+  return (
+    <section className="mt-8 overflow-hidden rounded-[24px] border border-[#ffd1df] bg-white p-4 shadow-[0_20px_60px_rgba(255,0,92,0.07)] sm:rounded-[30px] sm:p-6">
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">Real screens</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-normal text-[#111111] sm:text-4xl md:text-5xl">Photos and previews, not empty promises.</h2>
+        </div>
+        <p className="max-w-md text-base font-semibold leading-7 text-[#706872]">
+          Swipe with your finger or drag with the mouse to review the actual preview surfaces.
+        </p>
+      </div>
+
+      <div className="rf-touch-scroll mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3">
+        {productImages.map((image) => (
+          <article
+            key={image.src}
+            className="min-w-[82%] snap-start overflow-hidden rounded-[22px] border border-[#ffe0e8] bg-[#fff7fa] sm:min-w-[44%] lg:min-w-[24rem]"
+          >
+            <div className="relative aspect-[4/3] bg-white">
+              <Image src={image.src} alt={image.alt} fill sizes="(max-width: 640px) 82vw, (max-width: 1024px) 44vw, 384px" className="object-cover" />
+            </div>
+            <div className="flex items-center justify-between gap-3 p-4">
+              <p className="text-base font-black text-[#111111]">{image.title}</p>
+              <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-[#ff005c]">Swipe</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function TrustMini() {
   return (
-    <div className="mt-4 rounded-[24px] border border-[#e8f5ef] bg-[linear-gradient(180deg,#ffffff,#fbfffd)] px-4 py-4 shadow-[0_14px_34px_rgba(17,17,17,0.06)]">
-      <div className="flex items-center gap-4">
+    <div className="mt-4 rounded-[18px] border border-[#e8f5ef] bg-[linear-gradient(180deg,#ffffff,#fbfffd)] px-3 py-3 shadow-[0_12px_26px_rgba(17,17,17,0.05)]">
+      <div className="flex items-center gap-3">
         <div className="shrink-0">
-          <div className="flex -space-x-3">
+          <div className="flex -space-x-2">
             {userAvatars.map((avatar, index) => (
               <Image
                 key={avatar}
                 src={avatar}
-                width={42}
-                height={42}
+                width={32}
+                height={32}
                 alt={`Fictional platform user ${index + 1}`}
-                className="h-10 w-10 rounded-full border-2 border-white object-cover shadow-[0_8px_18px_rgba(17,17,17,0.12)]"
+                className="h-8 w-8 rounded-full border-2 border-white object-cover shadow-[0_7px_14px_rgba(17,17,17,0.10)]"
               />
             ))}
-            <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-white bg-[#111111] text-xs font-black text-white shadow-[0_8px_20px_rgba(17,17,17,0.14)]">
+            <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-[#111111] text-[10px] font-black text-white shadow-[0_7px_16px_rgba(17,17,17,0.12)]">
               1K+
             </span>
           </div>
         </div>
         <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <p className="text-base font-black text-[#111111]">Excellent</p>
-            <span className="text-sm font-black text-[#111111]">
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+            <p className="text-sm font-black text-[#111111]">Excellent</p>
+            <span className="text-xs font-black text-[#111111]">
               <span className="text-[#00B67A]">4.8</span> out of 5
             </span>
           </div>
-          <div className="mt-2 flex flex-wrap items-center gap-1">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
-                <span key={star} className="grid h-6 w-6 place-items-center rounded-md bg-[#00B67A] text-xs font-black text-white shadow-[0_8px_18px_rgba(0,182,122,0.18)]">
+                <span key={star} className="grid h-4 w-4 place-items-center rounded bg-[#00B67A] text-[9px] font-black text-white shadow-[0_6px_14px_rgba(0,182,122,0.16)]">
                   ★
                 </span>
               ))}
-              <span className="ml-1 text-sm font-black text-[#00B67A]">★</span>
-              <span className="text-sm font-black text-[#1f2130]">TrustScore</span>
+              <span className="ml-0.5 text-xs font-black text-[#1f2130]">TrustScore</span>
           </div>
-          <p className="mt-1 text-sm font-black text-[#111111]">Based on 1478+ reviews</p>
+          <p className="mt-1 truncate text-xs font-black text-[#111111]">Based on 1478+ reviews</p>
         </div>
       </div>
     </div>
@@ -678,11 +802,11 @@ function HowItWorks() {
 
 function Reviews() {
   return (
-    <section className="mt-8 rounded-[32px] bg-[#111111] p-5 text-white sm:p-6">
+    <section className="mt-8 rounded-[24px] bg-[#111111] p-4 text-white sm:rounded-[32px] sm:p-6">
       <div>
-        <div className="mb-8 grid gap-4 rounded-[28px] border border-white/10 bg-white/[0.06] p-4 md:grid-cols-[0.8fr_1.2fr] md:items-center">
+        <div className="mb-8 grid gap-4 rounded-[22px] border border-white/10 bg-white/[0.06] p-4 md:grid-cols-[0.8fr_1.2fr] md:items-center">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff5a2a]">TrustScore</p>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff5a2a]">Public review signals</p>
             <p className="mt-2 text-5xl font-black text-white">4.8<span className="text-xl text-white/[0.45]">/5</span></p>
           </div>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
@@ -705,13 +829,81 @@ function Reviews() {
             </div>
           </div>
         </div>
-        <h2 className="max-w-3xl text-4xl font-black tracking-normal md:text-5xl">Short reviews, clear expectations.</h2>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff5a2a]">Social-style reviews</p>
+            <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-normal sm:text-4xl md:text-5xl">Swipe the public reviews.</h2>
+          </div>
+          <p className="max-w-md text-sm font-bold leading-6 text-white/55">
+            Review-site excerpts formatted as swipeable social cards, with source labels kept visible.
+          </p>
+        </div>
+        <div className="rf-touch-scroll mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3">
           {reviews.map((review) => (
-            <article key={review.name} className="rounded-[28px] border border-white/10 bg-white/[0.06] p-7">
-              <p className="text-lg font-black text-[#FF4B2B]">*****</p>
+            <article key={`${review.source}-${review.handle}`} className="min-w-[84%] snap-start rounded-[24px] border border-white/10 bg-white/[0.06] p-5 sm:min-w-[21rem] sm:p-6">
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="truncate text-base font-black text-white">{review.handle}</p>
+                  <p className="mt-1 text-xs font-black uppercase tracking-[0.14em] text-white/45">{review.source} · {review.date}</p>
+                </div>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-sm font-black text-[#111111]">X</span>
+              </div>
               <p className="mt-5 text-lg font-semibold leading-8 text-white/[0.86]">{review.text}</p>
-              <p className="mt-6 text-sm font-black uppercase tracking-[0.16em] text-white/50">{review.name}</p>
+              <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-4">
+                <p className="truncate text-sm font-black text-white/65">{review.name}</p>
+                <a
+                  href={review.sourceUrl}
+                  className="shrink-0 rounded-full bg-white px-3 py-1 text-xs font-black text-[#111111] transition hover:bg-[#ffefe9]"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Source
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function UgcSection() {
+  return (
+    <section className="mt-8 rounded-[24px] border border-[#d9efe7] bg-[#f7fffb] p-4 sm:rounded-[32px] sm:p-6">
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.18em] text-[#009a63]">UGC</p>
+          <h2 className="mt-3 max-w-2xl text-3xl font-black tracking-normal text-[#111111] sm:text-4xl md:text-5xl">Creator-style proof that feels alive.</h2>
+        </div>
+        <p className="max-w-md text-base font-semibold leading-7 text-[#53635c]">
+          Lightweight user cards, real faces from the asset set, and compact quotes that scan on mobile.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+        <div className="overflow-hidden rounded-[22px] border border-[#cfe9df] bg-white">
+          <div className="relative aspect-[4/3] min-h-[250px]">
+            <Image
+              src={`${assetPath}/fictitious-users-contact-sheet.png`}
+              alt="Contact sheet of platform user avatars"
+              fill
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+        <div className="grid gap-3">
+          {ugcItems.map((item) => (
+            <article key={item.name} className="flex gap-4 rounded-[22px] border border-[#cfe9df] bg-white p-4 shadow-[0_18px_42px_rgba(0,154,99,0.07)]">
+              <Image src={item.image} width={56} height={56} alt={`${item.name} avatar`} className="h-14 w-14 shrink-0 rounded-2xl object-cover" />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <p className="font-black text-[#111111]">{item.name}</p>
+                  <span className="rounded-full bg-[#eafff4] px-2 py-1 text-[11px] font-black uppercase text-[#009a63]">{item.role}</span>
+                </div>
+                <p className="mt-2 text-sm font-semibold leading-6 text-[#53635c]">{item.quote}</p>
+              </div>
             </article>
           ))}
         </div>

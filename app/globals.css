@@ -79,8 +79,9 @@ details[open] summary .faq-icon {
 }
 
 .rf-finger {
-  animation: rf-finger 1.15s ease-in-out infinite;
-  transform-origin: 60% 60%;
+  display: inline-block;
+  animation: rf-finger 1.35s ease-in-out infinite;
+  transform-origin: 58% 64%;
 }
 
 .rf-radar-sweep {
@@ -90,6 +91,56 @@ details[open] summary .faq-icon {
 .rf-scan-bar {
   background-size: 180% 100%;
   animation: rf-scan-bar 1.1s ease-in-out infinite;
+}
+
+.rf-insta-ring {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.75), transparent 24%),
+    conic-gradient(from 210deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd, #feda75);
+  box-shadow: 0 24px 70px rgba(255, 0, 92, 0.18);
+  animation: rf-insta-ring 2.9s ease-in-out infinite;
+}
+
+.rf-insta-glow {
+  animation: rf-insta-glow 1.75s ease-in-out infinite;
+}
+
+.rf-insta-orbit {
+  animation: rf-insta-orbit 3.1s linear infinite;
+}
+
+.rf-insta-dot {
+  animation: rf-insta-dot 1.35s ease-in-out infinite;
+}
+
+.rf-insta-dot-delayed {
+  animation-delay: -0.55s;
+}
+
+.rf-touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 0, 92, 0.5) rgba(255, 255, 255, 0.35);
+}
+
+.rf-touch-scroll:active {
+  cursor: grabbing;
+}
+
+.rf-touch-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.rf-touch-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+}
+
+.rf-touch-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 92, 0.5);
+  border-radius: 999px;
 }
 
 @keyframes rf-float {
@@ -125,13 +176,13 @@ details[open] summary .faq-icon {
 @keyframes rf-finger {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-12deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(-8deg) scale(1);
   }
-  45% {
-    transform: translate3d(-10px, -10px, 0) rotate(-18deg) scale(1.08);
+  42% {
+    transform: translate3d(2px, 0, 0) rotate(-11deg) scale(1.08);
   }
-  65% {
-    transform: translate3d(-6px, -6px, 0) rotate(-14deg) scale(0.96);
+  58% {
+    transform: translate3d(0, 0, 0) rotate(-7deg) scale(0.98);
   }
 }
 
@@ -151,6 +202,49 @@ details[open] summary .faq-icon {
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes rf-insta-ring {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: saturate(1);
+  }
+  50% {
+    transform: scale(1.025);
+    filter: saturate(1.18);
+  }
+}
+
+@keyframes rf-insta-glow {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes rf-insta-orbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rf-insta-dot {
+  0%,
+  100% {
+    transform: translate3d(-50%, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-50%, -5px, 0) scale(1.14);
   }
 }
 

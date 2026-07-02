@@ -114,15 +114,15 @@ export default function AnalyzeExperience({
         </div>
       </header>
 
-      <section className="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl place-items-center px-5 py-8 lg:px-8">
-        <div className="w-full max-w-3xl rounded-[36px] border border-white/20 bg-white p-5 text-[#111111] shadow-[0_34px_100px_rgba(67,0,24,0.28)] sm:p-8">
+      <section className="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl place-items-center px-4 py-6 sm:px-5 sm:py-8 lg:px-8">
+        <div className="w-full max-w-3xl overflow-hidden rounded-[28px] border border-white/20 bg-white p-5 text-[#111111] shadow-[0_34px_100px_rgba(67,0,24,0.28)] sm:rounded-[36px] sm:p-8">
           <div className="text-center">
             <div className="mx-auto flex w-fit flex-wrap items-center justify-center gap-2 rounded-full border border-[#ffd1df] bg-[#fff7fa] px-4 py-2 text-sm font-black text-[#ff005c]">
               <span>@{username || "username"}</span>
               <span className="h-1.5 w-1.5 rounded-full bg-[#ff9ab7]" />
               <span>{initialType === "both" ? "Full account preview" : initialType === "following" ? "Recent following" : "Recent followers"}</span>
             </div>
-            <h1 className="mt-6 text-4xl font-black leading-tight tracking-normal sm:text-5xl">
+            <h1 className="mt-5 text-[clamp(2.1rem,8vw,3.2rem)] font-black leading-tight tracking-normal sm:mt-6">
               Preparing your public activity preview
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-base font-semibold leading-7 text-[#706872] sm:text-lg">
@@ -130,24 +130,24 @@ export default function AnalyzeExperience({
             </p>
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-[280px] place-items-center">
-            <div className="relative grid aspect-square w-full place-items-center rounded-full border border-[#ffd1df] bg-[radial-gradient(circle,rgba(255,0,92,0.12),rgba(255,90,42,0.08)_42%,transparent_43%),repeating-radial-gradient(circle,rgba(255,0,92,0.18)_0_1px,transparent_1px_34px)]">
-              {/* Radar only spins while not ready */}
-              {!isReady && (
-                <div className="rf-radar-sweep absolute left-1/2 top-1/2 h-1/2 w-1/2 origin-bottom-left rounded-br-full bg-[linear-gradient(45deg,rgba(255,0,92,0.35),transparent_62%)]" />
-              )}
-              {/* Static "done" tick when ready */}
-              {isReady && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-full border-4 border-[#ff005c]/20" />
-                </div>
-              )}
-              <div className="relative z-10 grid h-36 w-36 place-items-center rounded-full border border-[#ffd1df] bg-white shadow-[0_24px_50px_rgba(255,0,92,0.14)]">
-                <div className="text-center">
-                  <p className="text-5xl font-black text-[#ff005c]">{Math.round(progress)}%</p>
-                  <p className="mt-1 text-xs font-black uppercase tracking-[0.16em] text-[#817781]">
-                    {isReady ? "Ready ✓" : "Scanning"}
-                  </p>
+          <div className="mx-auto mt-7 grid w-full max-w-[min(17rem,76vw)] place-items-center sm:mt-8">
+            <div className="rf-insta-ring relative grid aspect-square w-full place-items-center rounded-[34%] p-[5px]">
+              <div className="relative grid h-full w-full place-items-center overflow-hidden rounded-[32%] bg-white">
+                <div className="rf-insta-glow absolute inset-5 rounded-full bg-[radial-gradient(circle,rgba(255,0,92,0.20),rgba(255,122,42,0.10)_44%,transparent_68%)]" />
+                {!isReady && (
+                  <>
+                    <div className="rf-insta-orbit absolute inset-7 rounded-full border border-[#ffd1df]" />
+                    <span className="rf-insta-dot absolute left-1/2 top-7 h-3 w-3 -translate-x-1/2 rounded-full bg-[#ff005c] shadow-[0_0_0_7px_rgba(255,0,92,0.12)]" />
+                    <span className="rf-insta-dot rf-insta-dot-delayed absolute bottom-8 right-10 h-2.5 w-2.5 rounded-full bg-[#ffb000] shadow-[0_0_0_6px_rgba(255,176,0,0.13)]" />
+                  </>
+                )}
+                <div className="relative z-10 grid h-[7.8rem] w-[7.8rem] place-items-center rounded-full border border-[#ffd1df] bg-white shadow-[0_24px_50px_rgba(255,0,92,0.14)] sm:h-36 sm:w-36">
+                  <div className="text-center">
+                    <p className="text-4xl font-black text-[#ff005c] sm:text-5xl">{Math.round(progress)}%</p>
+                    <p className="mt-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#817781] sm:text-xs">
+                      {isReady ? "Ready" : "Scanning"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
