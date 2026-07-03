@@ -219,6 +219,12 @@ function LoginModal({ onClose }: { onClose: () => void }) {
         >
           Got it, continue without login
         </button>
+        <Link
+          href="/dashboard"
+          className="mt-3 flex h-12 w-full items-center justify-center rounded-full bg-[#ff005c] text-sm font-black text-white transition hover:bg-[#db0050]"
+        >
+          Open demo dashboard
+        </Link>
       </div>
     </div>
   );
@@ -226,21 +232,21 @@ function LoginModal({ onClose }: { onClose: () => void }) {
 
 function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-[#ffd1df] bg-white/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-5 sm:py-5 lg:px-8">
+    <header className="absolute inset-x-0 top-0 z-40 border-transparent bg-transparent text-white sm:sticky sm:border-b sm:border-[#ffd1df] sm:bg-white/90 sm:text-[#111111] sm:backdrop-blur">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-5 sm:py-5 lg:px-8">
         <Link href="/" className="group flex items-center gap-3" aria-label="recently-followed home">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-[#fff7fa] shadow-[0_18px_45px_rgba(255,0,92,0.12)] sm:h-11 sm:w-11">
-            <span className="h-4 w-4 rounded-full bg-[#ff005c] shadow-[0_0_0_8px_rgba(255,0,92,0.13)]" />
+          <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 shadow-[0_18px_45px_rgba(99,0,30,0.14)] backdrop-blur sm:h-11 sm:w-11 sm:bg-[#fff7fa] sm:shadow-[0_18px_45px_rgba(255,0,92,0.12)]">
+            <span className="h-4 w-4 rounded-full bg-white shadow-[0_0_0_7px_rgba(255,255,255,0.18)] sm:bg-[#ff005c] sm:shadow-[0_0_0_8px_rgba(255,0,92,0.13)]" />
           </span>
-          <span className="max-w-[11rem] truncate text-base font-black uppercase tracking-normal text-[#111111] sm:max-w-none sm:text-xl">Recently Followed</span>
+          <span className="max-w-[12rem] truncate text-base font-black uppercase tracking-normal text-white drop-shadow-[0_8px_22px_rgba(99,0,30,0.20)] sm:max-w-none sm:text-xl sm:text-[#111111] sm:drop-shadow-none">Recently Followed</span>
         </Link>
-        <nav className="flex items-center gap-2 text-sm font-black text-[#111111] sm:gap-3">
+        <nav className="flex items-center gap-2 text-sm font-black text-white sm:gap-3 sm:text-[#111111]">
           <a href="#faq" className="hidden rounded-full px-4 py-2 transition hover:bg-[#fff7fa] sm:inline-flex">
             FAQ
           </a>
           <button
             onClick={onLoginClick}
-            className="rounded-full px-4 py-2 transition hover:bg-[#fff7fa]"
+            className="rounded-full bg-white/16 px-4 py-2 shadow-[0_12px_30px_rgba(99,0,30,0.12)] backdrop-blur transition hover:bg-white/24 sm:bg-transparent sm:shadow-none sm:backdrop-blur-none sm:hover:bg-[#fff7fa]"
             type="button"
           >
             Login
@@ -256,29 +262,31 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
 
 function HeroContent() {
   return (
-    <section className="relative w-full overflow-hidden rounded-none bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-3 py-5 text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[30px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+    <section className="relative w-full overflow-hidden rounded-none bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-3 pb-4 pt-[5rem] text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[30px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
       <div className="pointer-events-none absolute inset-0 opacity-20">
         <div className="rf-float absolute left-[8%] top-20 h-48 w-48 rounded-full border border-white/30" />
         <div className="rf-float-delayed absolute bottom-10 right-[18%] h-72 w-72 rounded-full border border-white/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.18))]" />
       </div>
 
-      <div className="relative z-10 grid min-w-0 gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] lg:items-center">
+      <div className="relative z-10 grid min-w-0 gap-4 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] lg:items-center">
         <div>
-          <div className="w-fit max-w-full rounded-full border border-white/[0.24] bg-white/[0.16] px-3 py-2 shadow-[0_20px_55px_rgba(89,0,30,0.14)] backdrop-blur sm:px-4">
-            <div className="flex min-w-0 items-center gap-2 text-[11px] font-black uppercase leading-none tracking-[0.10em] text-white sm:gap-3 sm:text-sm sm:tracking-[0.14em]">
-              <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-[#ff005c]">✓</span>
+          <div className="w-fit max-w-full rounded-full border border-white/[0.24] bg-white/[0.16] px-2.5 py-1.5 shadow-[0_20px_55px_rgba(89,0,30,0.14)] backdrop-blur sm:px-4 sm:py-2">
+            <div className="flex min-w-0 items-center gap-2 text-[9px] font-black uppercase leading-none tracking-[0.06em] text-white min-[390px]:text-[10px] sm:gap-3 sm:text-sm sm:tracking-[0.14em]">
+              <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-xs text-[#ff005c] sm:h-6 sm:w-6 sm:text-base">✓</span>
               <span className="min-w-0 truncate">Public Instagram following preview</span>
             </div>
           </div>
 
-          <h1 className="mt-5 max-w-4xl text-[clamp(2.25rem,12vw,6.1rem)] font-black leading-[0.98] tracking-normal text-white sm:mt-9 sm:text-[clamp(2.35rem,8vw,6.1rem)]">
+          <h1 className="mt-3 max-w-4xl text-[clamp(1.78rem,8.7vw,2.55rem)] font-black leading-[0.95] tracking-normal text-white min-[390px]:text-[clamp(1.95rem,9.4vw,2.85rem)] sm:mt-9 sm:text-[clamp(2.35rem,8vw,6.1rem)]">
             See recent Instagram follows in minutes
           </h1>
 
-          <p className="mt-4 max-w-3xl text-base font-semibold leading-[1.42] text-white/[0.92] sm:text-lg md:mt-6 md:text-[1.75rem]">
+          <p className="mt-2.5 max-w-3xl text-[0.82rem] font-semibold leading-[1.28] text-white/[0.92] min-[390px]:text-[0.9rem] sm:mt-4 sm:text-lg md:mt-6 md:text-[1.75rem]">
             Enter a public Instagram username and generate a clean preview of recent public following activity. No login required.
           </p>
+
+          <HeroMobileProof />
 
           <div className="mt-7 hidden rounded-[26px] border border-white/[0.18] bg-white/[0.10] p-4 backdrop-blur sm:block">
             <p className="text-sm font-black uppercase tracking-[0.18em] text-white/70">As seen on</p>
@@ -315,6 +323,34 @@ function PopularSearches() {
   );
 }
 
+function HeroMobileProof() {
+  return (
+    <div className="mt-3 flex items-center justify-between gap-2 rounded-2xl border border-white/20 bg-white/14 px-3 py-2 shadow-[0_18px_40px_rgba(99,0,30,0.12)] backdrop-blur sm:hidden">
+      <div className="flex min-w-0 items-center gap-2">
+        <div className="flex -space-x-2">
+          {userAvatars.slice(0, 3).map((avatar, index) => (
+            <Image
+              key={avatar}
+              src={avatar}
+              width={26}
+              height={26}
+              alt={`Reviewer ${index + 1}`}
+              className="h-6 w-6 rounded-full border-2 border-white object-cover"
+            />
+          ))}
+          <span className="grid h-6 w-6 place-items-center rounded-full border-2 border-white bg-[#111111] text-[8px] font-black text-white">
+            1K+
+          </span>
+        </div>
+        <p className="min-w-0 truncate text-[11px] font-black leading-tight text-white">
+          4.8/5 from 1,478+ reviews
+        </p>
+      </div>
+      <span className="shrink-0 rounded-full bg-white px-2 py-1 text-[10px] font-black text-[#ff005c]">No login</span>
+    </div>
+  );
+}
+
 function CheckerCard() {
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -348,14 +384,14 @@ function CheckerCard() {
   return (
     <form
       onSubmit={submit}
-      className="w-full min-w-0 rounded-[24px] border border-[#ffd1df] bg-white p-3 text-[#111111] shadow-[0_24px_70px_rgba(255,0,92,0.16)] sm:rounded-[30px] sm:p-5"
+      className="w-full min-w-0 rounded-[22px] border border-[#ffd1df] bg-white p-3 text-[#111111] shadow-[0_24px_70px_rgba(255,0,92,0.16)] sm:rounded-[30px] sm:p-5"
     >
       <div className="text-center">
-        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#ff005c]">Public preview</p>
-        <h2 className="mx-auto mt-2 max-w-[18rem] text-[clamp(1.45rem,7vw,1.85rem)] font-black leading-[1.02] tracking-normal text-[#111111] sm:max-w-none sm:text-[2.1rem]">Who do you want to check?</h2>
+        <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#ff005c] sm:text-[11px] sm:tracking-[0.18em]">Public preview</p>
+        <h2 className="mx-auto mt-1.5 max-w-[18rem] text-[clamp(1.25rem,6vw,1.62rem)] font-black leading-[1.02] tracking-normal text-[#111111] sm:mt-2 sm:max-w-none sm:text-[2.1rem]">Who do you want to check?</h2>
       </div>
 
-      <label className="mt-5 block">
+      <label className="mt-3 block sm:mt-5">
         <span className="mb-2 flex items-center justify-between gap-3 text-sm font-black text-[#111111]">
           <span>Instagram username</span>
           <span className="rf-input-hint inline-flex items-center gap-1 rounded-full bg-[#fff1f5] px-3 py-1 text-xs font-black text-[#ff005c]">
@@ -363,7 +399,7 @@ function CheckerCard() {
             <span aria-hidden="true">👇</span>
           </span>
         </span>
-        <span className="relative flex h-[3.35rem] items-center gap-3 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-3 shadow-[0_12px_28px_rgba(255,0,92,0.05)] focus-within:border-[#ff005c] sm:h-[3.25rem] sm:px-4">
+        <span className="relative flex h-[3.05rem] items-center gap-3 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-3 shadow-[0_12px_28px_rgba(255,0,92,0.05)] focus-within:border-[#ff005c] sm:h-[3.25rem] sm:px-4">
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-white text-lg font-black text-[#ff005c] shadow-[0_8px_18px_rgba(255,0,92,0.06)]">@</span>
           <input
             value={username}
@@ -385,12 +421,12 @@ function CheckerCard() {
         </span>
       </label>
 
-      <div className="mt-4 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-4 py-3">
+      <div className="mt-3 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-3 py-2.5 sm:mt-4 sm:px-4 sm:py-3">
         <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-lg shadow-[0_8px_18px_rgba(255,0,92,0.08)]">🔎</span>
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-base shadow-[0_8px_18px_rgba(255,0,92,0.08)] sm:h-9 sm:w-9 sm:text-lg">🔎</span>
           <div>
             <p className="text-sm font-black text-[#111111]">Full account preview</p>
-            <p className="mt-0.5 text-xs font-bold text-[#706872]">Checks public follower and following signals together.</p>
+            <p className="mt-0.5 text-[11px] font-bold leading-tight text-[#706872] sm:text-xs">Checks public follower and following signals together.</p>
           </div>
         </div>
       </div>
@@ -404,7 +440,7 @@ function CheckerCard() {
       <button
         type="submit"
         disabled={formState === "loading"}
-        className="group relative mt-5 flex h-16 w-full items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[linear-gradient(135deg,#ff005c_0%,#ff2d55_48%,#ff7a2a_100%)] px-4 text-[1.05rem] font-black leading-none text-white shadow-[0_18px_36px_rgba(255,0,92,0.34),0_0_0_5px_rgba(255,0,92,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_44px_rgba(255,0,92,0.42),0_0_0_7px_rgba(255,0,92,0.13)] disabled:cursor-not-allowed disabled:opacity-70 sm:h-[4.1rem] sm:px-5 sm:text-[1.38rem]"
+        className="group relative mt-4 flex h-14 w-full items-center justify-center overflow-hidden rounded-full border-2 border-white bg-[linear-gradient(135deg,#ff005c_0%,#ff2d55_48%,#ff7a2a_100%)] px-4 text-[1rem] font-black leading-none text-white shadow-[0_18px_36px_rgba(255,0,92,0.34),0_0_0_5px_rgba(255,0,92,0.10)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_44px_rgba(255,0,92,0.42),0_0_0_7px_rgba(255,0,92,0.13)] disabled:cursor-not-allowed disabled:opacity-70 sm:mt-5 sm:h-[4.1rem] sm:px-5 sm:text-[1.38rem]"
       >
         <span className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/70" />
         <span className="pointer-events-none absolute -left-16 top-0 h-full w-16 -skew-x-12 bg-white/25 transition duration-700 group-hover:left-[115%]" />
@@ -426,7 +462,7 @@ function CheckerCard() {
         )}
       </button>
 
-      <p className="mt-2 text-center text-sm font-black text-[#777177]">Get your preview in a few seconds</p>
+      <p className="mt-1.5 text-center text-[11px] font-black text-[#777177] sm:mt-2 sm:text-sm">Get your preview in a few seconds</p>
       <BenefitPills />
 
       <TrustMini />
@@ -439,14 +475,14 @@ function CheckerCard() {
         </div>
       )}
 
-      <p className="mt-4 text-center text-xs font-bold text-[#8b858b]">Public profiles only. Not affiliated with Instagram or Meta.</p>
+      <p className="mt-4 hidden text-center text-xs font-bold text-[#8b858b] sm:block">Public profiles only. Not affiliated with Instagram or Meta.</p>
     </form>
   );
 }
 
 function BenefitPills() {
   return (
-    <div className="mt-4 grid grid-cols-2 gap-2">
+    <div className="mt-4 hidden grid-cols-2 gap-2 sm:grid">
       {formFeatures.map(([icon, label]) => (
         <div key={label} className="flex items-center gap-2 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-3 py-3 shadow-[0_12px_26px_rgba(255,0,92,0.05)]">
           <span className="text-lg leading-none">{icon}</span>
@@ -492,7 +528,7 @@ function ProductGallery() {
 
 function TrustMini() {
   return (
-    <div className="mt-4 rounded-[18px] border border-[#e8f5ef] bg-[linear-gradient(180deg,#ffffff,#fbfffd)] px-3 py-3 shadow-[0_12px_26px_rgba(17,17,17,0.05)]">
+    <div className="mt-4 hidden rounded-[18px] border border-[#e8f5ef] bg-[linear-gradient(180deg,#ffffff,#fbfffd)] px-3 py-3 shadow-[0_12px_26px_rgba(17,17,17,0.05)] sm:block">
       <div className="flex items-center gap-3">
         <div className="shrink-0">
           <div className="flex -space-x-2">

@@ -5,6 +5,7 @@ out/
 dist/
 coverage/
 *.tsbuildinfo
+.data/
 .env
 .env*.local
 !.env.example
