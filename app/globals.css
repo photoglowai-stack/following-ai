@@ -84,6 +84,15 @@ details[open] summary .faq-icon {
   transform-origin: 58% 64%;
 }
 
+.rf-input-hint {
+  animation: rf-input-hint 1.45s ease-in-out infinite;
+}
+
+.rf-input-finger {
+  animation: rf-input-finger 1.18s ease-in-out infinite;
+  transform-origin: 70% 55%;
+}
+
 .rf-radar-sweep {
   animation: rf-radar-sweep 1.55s linear infinite;
 }
@@ -183,6 +192,29 @@ details[open] summary .faq-icon {
   }
   58% {
     transform: translate3d(0, 0, 0) rotate(-7deg) scale(0.98);
+  }
+}
+
+@keyframes rf-input-hint {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes rf-input-finger {
+  0%,
+  100% {
+    transform: translate3d(0, -50%, 0) rotate(0deg) scale(1);
+  }
+  42% {
+    transform: translate3d(-6px, -50%, 0) rotate(-8deg) scale(1.08);
+  }
+  64% {
+    transform: translate3d(-2px, -50%, 0) rotate(-3deg) scale(0.98);
   }
 }
 

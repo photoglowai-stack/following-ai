@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
+import type { InstagramPreviewResponse } from "@/lib/instagramPreview";
 
 type ModalState = "closed" | "login";
 
@@ -57,32 +58,11 @@ const popularSearches = [
   "Instagram following activity preview",
 ];
 
-const socialCards = [
-  {
-    tag: "Preview",
-    number: "01",
-    title: "See recent follows clearly",
-    subtitle: "Clean public follow preview",
-    body: "A simple report highlights recent public following activity without clutter or confusing screens.",
-    visual: "preview",
-  },
-  {
-    tag: "Privacy",
-    number: "02",
-    title: "Read masked results fast",
-    subtitle: "Masked usernames, clear rows",
-    body: "Partially hidden usernames and structured rows make the result easy to read while keeping the preview discreet.",
-    visual: "privacy",
-  },
-  {
-    tag: "Fast",
-    number: "03",
-    title: "Get a simple report in minutes",
-    subtitle: "No noise, just the result",
-    body: "Open the preview, review the public signals, and understand the result immediately. No messy dashboard, no extra steps.",
-    visual: "fast",
-  },
-] as const;
+const liveInstagramExamples = [
+  { username: "instagram", label: "Official platform" },
+  { username: "natgeo", label: "Publisher account" },
+  { username: "nike", label: "Brand account" },
+];
 
 const reviews = [
   {
@@ -189,7 +169,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <SiteHeader onLoginClick={() => setModal("login")} />
-      <div className="mx-auto w-full max-w-7xl px-5 pb-16 pt-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-0 pb-12 pt-0 sm:px-5 sm:pb-16 sm:pt-6 lg:px-8">
         <HeroContent />
         <PopularSearches />
         <ProductGallery />
@@ -247,14 +227,14 @@ function LoginModal({ onClose }: { onClose: () => void }) {
 function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
   return (
     <header className="sticky top-0 z-40 border-b border-[#ffd1df] bg-white/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-5 sm:py-5 lg:px-8">
         <Link href="/" className="group flex items-center gap-3" aria-label="recently-followed home">
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fff7fa] shadow-[0_18px_45px_rgba(255,0,92,0.12)]">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-[#fff7fa] shadow-[0_18px_45px_rgba(255,0,92,0.12)] sm:h-11 sm:w-11">
             <span className="h-4 w-4 rounded-full bg-[#ff005c] shadow-[0_0_0_8px_rgba(255,0,92,0.13)]" />
           </span>
           <span className="max-w-[11rem] truncate text-base font-black uppercase tracking-normal text-[#111111] sm:max-w-none sm:text-xl">Recently Followed</span>
         </Link>
-        <nav className="flex items-center gap-3 text-sm font-black text-[#111111]">
+        <nav className="flex items-center gap-2 text-sm font-black text-[#111111] sm:gap-3">
           <a href="#faq" className="hidden rounded-full px-4 py-2 transition hover:bg-[#fff7fa] sm:inline-flex">
             FAQ
           </a>
@@ -265,7 +245,7 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
           >
             Login
           </button>
-          <span className="hidden rounded-2xl bg-[#050505] px-5 py-3 text-white shadow-sm cursor-default select-none min-[390px]:inline-flex">
+          <span className="hidden rounded-2xl bg-[#050505] px-5 py-3 text-white shadow-sm cursor-default select-none sm:inline-flex">
             🌐 EN
           </span>
         </nav>
@@ -276,27 +256,27 @@ function SiteHeader({ onLoginClick }: { onLoginClick: () => void }) {
 
 function HeroContent() {
   return (
-    <section className="relative overflow-hidden rounded-[22px] bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-4 py-7 text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[30px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+    <section className="relative w-full overflow-hidden rounded-none bg-[linear-gradient(135deg,#ff005c_0%,#ff2d2d_55%,#ff5a2a_100%)] px-3 py-5 text-white shadow-[0_34px_90px_rgba(255,0,92,0.18)] sm:rounded-[30px] sm:px-8 sm:py-12 lg:px-10 lg:py-14">
       <div className="pointer-events-none absolute inset-0 opacity-20">
         <div className="rf-float absolute left-[8%] top-20 h-48 w-48 rounded-full border border-white/30" />
         <div className="rf-float-delayed absolute bottom-10 right-[18%] h-72 w-72 rounded-full border border-white/20" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.18))]" />
       </div>
 
-      <div className="relative z-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] lg:items-center">
+      <div className="relative z-10 grid min-w-0 gap-5 sm:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,460px)] lg:items-center">
         <div>
-          <div className="w-fit rounded-full border border-white/[0.24] bg-white/[0.16] px-4 py-2 shadow-[0_20px_55px_rgba(89,0,30,0.14)] backdrop-blur">
-            <div className="flex items-center gap-3 text-sm font-black uppercase leading-none tracking-[0.14em] text-white">
+          <div className="w-fit max-w-full rounded-full border border-white/[0.24] bg-white/[0.16] px-3 py-2 shadow-[0_20px_55px_rgba(89,0,30,0.14)] backdrop-blur sm:px-4">
+            <div className="flex min-w-0 items-center gap-2 text-[11px] font-black uppercase leading-none tracking-[0.10em] text-white sm:gap-3 sm:text-sm sm:tracking-[0.14em]">
               <span className="grid h-6 w-6 place-items-center rounded-full bg-white text-[#ff005c]">✓</span>
-              <span>Public Instagram following preview</span>
+              <span className="min-w-0 truncate">Public Instagram following preview</span>
             </div>
           </div>
 
-          <h1 className="mt-7 max-w-4xl text-[clamp(2.35rem,8vw,6.1rem)] font-black leading-[0.96] tracking-normal text-white sm:mt-9">
+          <h1 className="mt-5 max-w-4xl text-[clamp(2.25rem,12vw,6.1rem)] font-black leading-[0.98] tracking-normal text-white sm:mt-9 sm:text-[clamp(2.35rem,8vw,6.1rem)]">
             See recent Instagram follows in minutes
           </h1>
 
-          <p className="mt-5 max-w-3xl text-lg font-semibold leading-[1.42] text-white/[0.92] md:mt-6 md:text-[1.75rem]">
+          <p className="mt-4 max-w-3xl text-base font-semibold leading-[1.42] text-white/[0.92] sm:text-lg md:mt-6 md:text-[1.75rem]">
             Enter a public Instagram username and generate a clean preview of recent public following activity. No login required.
           </p>
 
@@ -312,7 +292,7 @@ function HeroContent() {
           </div>
         </div>
 
-        <div className="lg:justify-self-end">
+        <div className="min-w-0 lg:justify-self-end">
           <CheckerCard />
         </div>
       </div>
@@ -322,7 +302,7 @@ function HeroContent() {
 
 function PopularSearches() {
   return (
-    <section className="mt-8 rounded-[32px] border border-[#ffd1df] bg-[#fff7fa] p-5 sm:p-6">
+    <section className="mx-3 mt-8 rounded-[28px] border border-[#ffd1df] bg-[#fff7fa] p-4 sm:mx-0 sm:rounded-[32px] sm:p-6">
       <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">Popular searches</p>
       <div className="mt-4 flex flex-wrap gap-3">
         {popularSearches.map((search) => (
@@ -368,16 +348,22 @@ function CheckerCard() {
   return (
     <form
       onSubmit={submit}
-      className="rounded-[30px] border border-[#ffd1df] bg-white p-4 text-[#111111] shadow-[0_24px_70px_rgba(255,0,92,0.16)] sm:p-5"
+      className="w-full min-w-0 rounded-[24px] border border-[#ffd1df] bg-white p-3 text-[#111111] shadow-[0_24px_70px_rgba(255,0,92,0.16)] sm:rounded-[30px] sm:p-5"
     >
       <div className="text-center">
         <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#ff005c]">Public preview</p>
-        <h2 className="mt-2 text-[1.85rem] font-black leading-none tracking-normal text-[#111111] sm:text-[2.1rem]">Who do you want to check?</h2>
+        <h2 className="mx-auto mt-2 max-w-[18rem] text-[clamp(1.45rem,7vw,1.85rem)] font-black leading-[1.02] tracking-normal text-[#111111] sm:max-w-none sm:text-[2.1rem]">Who do you want to check?</h2>
       </div>
 
       <label className="mt-5 block">
-        <span className="mb-2 block text-sm font-black text-[#111111]">Instagram username</span>
-        <span className="flex h-[3.25rem] items-center gap-3 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-4 shadow-[0_12px_28px_rgba(255,0,92,0.05)] focus-within:border-[#ff005c]">
+        <span className="mb-2 flex items-center justify-between gap-3 text-sm font-black text-[#111111]">
+          <span>Instagram username</span>
+          <span className="rf-input-hint inline-flex items-center gap-1 rounded-full bg-[#fff1f5] px-3 py-1 text-xs font-black text-[#ff005c]">
+            <span>Fill here</span>
+            <span aria-hidden="true">👇</span>
+          </span>
+        </span>
+        <span className="relative flex h-[3.35rem] items-center gap-3 rounded-2xl border border-[#ffd1df] bg-[#fff7fa] px-3 shadow-[0_12px_28px_rgba(255,0,92,0.05)] focus-within:border-[#ff005c] sm:h-[3.25rem] sm:px-4">
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-white text-lg font-black text-[#ff005c] shadow-[0_8px_18px_rgba(255,0,92,0.06)]">@</span>
           <input
             value={username}
@@ -388,9 +374,14 @@ function CheckerCard() {
               }
             }}
             placeholder="@username"
-            className="h-full min-w-0 flex-1 border-0 bg-transparent text-base font-bold text-[#111111] outline-none placeholder:text-[#a6a0a4]"
+            className="h-full min-w-0 flex-1 border-0 bg-transparent pr-8 text-base font-bold text-[#111111] outline-none placeholder:text-[#a6a0a4] sm:pr-10"
             aria-invalid={formState === "invalid"}
           />
+          {!username && (
+            <span className="rf-input-finger pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-2xl drop-shadow-[0_8px_12px_rgba(255,0,92,0.18)]" aria-hidden="true">
+              👈
+            </span>
+          )}
         </span>
       </label>
 
@@ -468,7 +459,7 @@ function BenefitPills() {
 
 function ProductGallery() {
   return (
-    <section className="mt-8 overflow-hidden rounded-[24px] border border-[#ffd1df] bg-white p-4 shadow-[0_20px_60px_rgba(255,0,92,0.07)] sm:rounded-[30px] sm:p-6">
+    <section className="mx-3 mt-8 overflow-hidden rounded-[24px] border border-[#ffd1df] bg-white p-4 shadow-[0_20px_60px_rgba(255,0,92,0.07)] sm:mx-0 sm:rounded-[30px] sm:p-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">Real screens</p>
@@ -599,159 +590,160 @@ function ErrorPanel() {
 
 function SocialProof() {
   return (
-    <section className="mt-8">
+    <section className="mx-3 mt-8 sm:mx-0">
       <div>
-        <div className="mb-8 grid gap-4 rounded-[30px] border border-[#ffd1df] bg-[#fff7fa] p-4 shadow-[0_22px_70px_rgba(255,0,92,0.08)] sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mb-7 grid gap-3 rounded-[24px] border border-[#ffd1df] bg-[#fff7fa] p-3 shadow-[0_18px_54px_rgba(255,0,92,0.07)] sm:grid-cols-2 lg:grid-cols-4">
           {[
-            ["1 handle", "Start simple", "Start with a single public Instagram username."],
-            ["Public only", "Clear limits", "The flow is limited to visible public-profile signals."],
-            ["Masked rows", "Discreet output", "Partial usernames keep the preview discreet and easy to scan."],
-            ["No login", "Low friction", "No Instagram password or account connection required."],
-          ].map(([metric, title, copy]) => (
-            <div key={title} className="rounded-[22px] bg-white p-5">
-              <p className="text-3xl font-black text-[#ff005c]">{metric}</p>
-              <h3 className="mt-3 text-lg font-black text-[#111111]">{title}</h3>
-              <p className="mt-2 text-sm font-bold leading-6 text-[#706872]">{copy}</p>
+            ["Live profiles", "Photos and public counters from Instagram."],
+            ["Private aware", "Private accounts are labelled instead of faked."],
+            ["No blur bait", "The preview shows clear rows and real status."],
+            ["Mobile first", "Cards resize without giant cropped mockups."],
+          ].map(([title, copy]) => (
+            <div key={title} className="rounded-[18px] bg-white px-4 py-3">
+              <h3 className="text-sm font-black text-[#111111]">{title}</h3>
+              <p className="mt-1 text-xs font-bold leading-5 text-[#706872]">{copy}</p>
             </div>
           ))}
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">Preview format</p>
-            <h2 className="mt-3 max-w-2xl text-4xl font-black tracking-normal text-[#111111] md:text-5xl">A preview you can understand in seconds</h2>
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">Live Instagram examples</p>
+            <h2 className="mt-3 max-w-2xl text-[clamp(2.15rem,6vw,3.25rem)] font-black leading-[1.02] tracking-normal text-[#111111]">
+              Real profiles, real photos, real public counters.
+            </h2>
           </div>
           <p className="max-w-md text-base font-semibold leading-7 text-[#706872]">
-            See recent follows, masked rows, and simple status labels in a report that&apos;s easy to scan.
+            These examples use public Instagram profile data through the same preview endpoint as the app flow.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {socialCards.map((card) => (
-            <article
-              key={card.title}
-              className="group overflow-hidden rounded-[28px] border border-[#ffd1df] bg-white shadow-[0_22px_70px_rgba(255,0,92,0.09)] transition duration-300 hover:-translate-y-1"
-            >
-              <div className="relative min-h-[280px] bg-[linear-gradient(135deg,#ff005c_0%,#ff3b45_56%,#ff7a4a_100%)] p-4 sm:min-h-[310px] sm:p-5">
-                <div className="flex items-center justify-between">
-                  <span className="rounded-full border border-white/20 bg-white/20 px-4 py-2 text-sm font-black text-white shadow-[0_14px_30px_rgba(99,0,30,0.12)] backdrop-blur">
-                    {card.tag}
-                  </span>
-                  <span className="grid h-12 w-12 place-items-center rounded-full border border-white/55 bg-white/18 text-base font-black text-white backdrop-blur">
-                    {card.number}
-                  </span>
-                </div>
-                <ReportMockup visual={card.visual} />
-              </div>
-
-              <div className="p-5 sm:p-6">
-                <p className="text-sm font-black uppercase tracking-[0.12em] text-[#ff005c]">{card.subtitle}</p>
-                <h3 className="mt-3 text-xl font-black leading-tight tracking-normal text-[#111111] sm:text-2xl">{card.title}</h3>
-                <p className="mt-3 text-sm font-semibold leading-6 text-[#706872]">{card.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <LiveInstagramExamples />
       </div>
     </section>
   );
 }
 
-function ReportMockup({ visual }: { visual: (typeof socialCards)[number]["visual"] }) {
-  if (visual === "privacy") {
-    return (
-      <div className="mt-4 rounded-[24px] border border-white/30 bg-white p-3 shadow-[0_24px_56px_rgba(75,0,24,0.18)] sm:mt-5 sm:rounded-[26px] sm:p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-[#ff005c]">Masked list</p>
-            <p className="mt-1 text-xl font-black text-[#111111]">Public follow rows</p>
-          </div>
-          <span className="rounded-full bg-[#fff1f5] px-3 py-2 text-xs font-black text-[#ff005c]">Discreet</span>
-        </div>
-        <div className="mt-4 grid gap-2">
-          {[
-            ["@sa***_studio", "2m ago", "New follow"],
-            ["@ma***_daily", "15m ago", "Public"],
-            ["@tr***_way", "28m ago", "New follow"],
-            ["@fi***_lena", "39m ago", "Public"],
-          ].map(([handle, time, status], index) => (
-            <div key={handle} className={`grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-[#ffe0e8] bg-[#fff9fb] px-3 py-3 ${index === 3 ? "hidden sm:grid" : "grid"}`}>
-              <div className="min-w-0">
-                <p className="truncate text-sm font-black text-[#111111]">{handle}</p>
-                <p className="text-xs font-bold text-[#8a8289]">{time}</p>
-              </div>
-              <span className="rounded-full bg-white px-3 py-1 text-[11px] font-black text-[#ff005c] shadow-[0_8px_18px_rgba(255,0,92,0.08)]">{status}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
+function LiveInstagramExamples() {
+  const [examples, setExamples] = useState<InstagramPreviewResponse[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  if (visual === "fast") {
-    return (
-      <div className="mt-4 rounded-[24px] border border-white/30 bg-white p-3 shadow-[0_24px_56px_rgba(75,0,24,0.18)] sm:mt-5 sm:rounded-[26px] sm:p-4">
-        <div className="flex items-start gap-3">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-[#fff1f5] text-2xl">✓</span>
-          <div className="min-w-0">
-            <p className="text-xl font-black text-[#111111]">Preview ready</p>
-            <p className="mt-1 text-sm font-bold text-[#7d747b]">Simple public activity report</p>
-          </div>
-        </div>
-        <div className="mt-4 grid grid-cols-3 gap-2">
-          {[
-            ["Public", "Profile"],
-            ["24", "Recent follows"],
-            ["High", "Activity signal"],
-          ].map(([value, label]) => (
-            <div key={label} className="rounded-2xl border border-[#ffe0e8] bg-[#fff9fb] p-3 text-center">
-              <p className="text-lg font-black text-[#ff005c]">{value}</p>
-              <p className="mt-1 text-[10px] font-black uppercase leading-tight text-[#6f666d]">{label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 rounded-2xl border border-[#ffe0e8] bg-white px-3 py-3">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-black text-[#111111]">Follow radar</p>
-            <span className="rounded-full bg-[#eafff4] px-3 py-1 text-[11px] font-black text-[#009a63]">Ready</span>
-          </div>
-          <div className="mt-3 flex items-center gap-3 rounded-xl bg-[#fff7fa] px-3 py-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#ff005c] shadow-[0_0_0_7px_rgba(255,0,92,0.12)]" />
-            <p className="text-xs font-black text-[#111111]">New public follow detected</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    let cancelled = false;
+
+    Promise.all(
+      liveInstagramExamples.map((item) =>
+        fetch(`/api/instagram/preview?username=${encodeURIComponent(item.username)}`, { cache: "no-store" })
+          .then((response) => response.json() as Promise<InstagramPreviewResponse>)
+          .catch(() => null),
+      ),
+    ).then((items) => {
+      if (!cancelled) {
+        setExamples(items.filter((item): item is InstagramPreviewResponse => Boolean(item?.profile)));
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
-      <div className="mt-4 rounded-[24px] border border-white/30 bg-white p-3 shadow-[0_24px_56px_rgba(75,0,24,0.18)] sm:mt-5 sm:rounded-[26px] sm:p-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-[#ff005c]">Activity report</p>
-          <p className="mt-1 text-xl font-black text-[#111111]">Recent public follows</p>
-        </div>
-        <span className="rounded-full bg-[#fff1f5] px-3 py-2 text-xs font-black text-[#ff005c]">Live preview</span>
-      </div>
-      <div className="mt-4 rounded-2xl border border-[#ffe0e8] bg-[#fff9fb] p-3">
-        {[
-          ["sarah.johns...", "2m ago"],
-          ["martin.wilde...", "15m ago"],
-          ["traveldiary_...", "28m ago"],
-          ["fit.with.lena...", "39m ago"],
-        ].map(([handle, time], index) => (
-          <div key={handle} className={`items-center gap-3 border-b border-[#f4e4e9] py-3 last:border-b-0 ${index === 3 ? "hidden sm:flex" : "flex"}`}>
-            <span className="h-9 w-9 shrink-0 rounded-full bg-[linear-gradient(135deg,#ffe0e9,#ff7a4a)]" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-black text-[#111111]">{handle}</p>
-              <p className="text-xs font-bold text-[#8a8289]">{time}</p>
-            </div>
-            <span className="rounded-full bg-[#fff1f5] px-3 py-1 text-[11px] font-black text-[#ff005c]">New follow</span>
-          </div>
-        ))}
-      </div>
+    <div className="mt-7 grid gap-4 lg:grid-cols-3">
+      {(loading ? liveInstagramExamples : examples).map((item, index) => {
+        if ("username" in item) {
+          return <InstagramExampleSkeleton key={item.username} username={item.username} label={item.label} />;
+        }
+
+        const meta = liveInstagramExamples.find((example) => example.username === item.profile?.username);
+        return <InstagramExampleCard key={item.profile?.username || index} preview={item} label={meta?.label || "Public account"} />;
+      })}
     </div>
   );
+}
+
+function InstagramExampleSkeleton({ username, label }: { username: string; label: string }) {
+  return (
+    <article className="rounded-[24px] border border-[#ffd1df] bg-white p-4 shadow-[0_18px_54px_rgba(255,0,92,0.08)]">
+      <div className="flex items-center gap-3">
+        <span className="h-16 w-16 shrink-0 animate-pulse rounded-[22px] bg-[#fff1f5]" />
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-black uppercase tracking-[0.12em] text-[#ff005c]">{label}</p>
+          <p className="mt-1 truncate text-xl font-black text-[#111111]">@{username}</p>
+          <p className="mt-1 text-xs font-bold text-[#817781]">Loading public profile...</p>
+        </div>
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {[1, 2, 3].map((item) => (
+          <span key={item} className="h-14 animate-pulse rounded-2xl bg-[#fff7fa]" />
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function InstagramExampleCard({ preview, label }: { preview: InstagramPreviewResponse; label: string }) {
+  const profile = preview.profile;
+  if (!profile) return null;
+
+  return (
+    <article className="overflow-hidden rounded-[24px] border border-[#ffd1df] bg-white shadow-[0_18px_54px_rgba(255,0,92,0.08)]">
+      <div className="bg-[linear-gradient(135deg,#fff7fa,#ffffff)] p-4">
+        <div className="flex items-center gap-3">
+          <span className="grid h-[4.45rem] w-[4.45rem] shrink-0 place-items-center rounded-[24px] bg-[conic-gradient(from_210deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd,#feda75)] p-[3px]">
+            {profile.profilePicUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={`/api/instagram/image?url=${encodeURIComponent(profile.profilePicUrl)}`}
+                alt={`${profile.username} Instagram profile`}
+                className="h-full w-full rounded-[21px] border-2 border-white object-cover"
+              />
+            ) : (
+              <span className="grid h-full w-full place-items-center rounded-[21px] border-2 border-white bg-[#111111] text-sm font-black text-white">
+                {profile.username.slice(0, 2).toUpperCase()}
+              </span>
+            )}
+          </span>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <p className="truncate text-xl font-black text-[#111111]">@{profile.username}</p>
+              {profile.isVerified && <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#0095f6] text-[11px] font-black text-white">✓</span>}
+            </div>
+            <p className="mt-1 truncate text-sm font-black text-[#706872]">{profile.fullName || label}</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <span className="rounded-full bg-[#fff1f5] px-3 py-1 text-[11px] font-black uppercase text-[#ff005c]">{label}</span>
+              <span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase ${profile.isPrivate ? "bg-[#fff1f5] text-[#ff005c]" : "bg-[#eafff4] text-[#009a63]"}`}>
+                {profile.isPrivate ? "Private" : "Public"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {profile.biography && <p className="mt-4 line-clamp-2 text-sm font-semibold leading-6 text-[#706872]">{profile.biography}</p>}
+      </div>
+
+      <div className="grid grid-cols-3 border-t border-[#ffe0e8] bg-white">
+        <MiniMetric label="Followers" value={formatPublicCount(profile.followersCount)} />
+        <MiniMetric label="Following" value={formatPublicCount(profile.followingCount)} />
+        <MiniMetric label="Posts" value={formatPublicCount(profile.postsCount)} />
+      </div>
+    </article>
+  );
+}
+
+function MiniMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border-r border-[#ffe0e8] px-3 py-3 text-center last:border-r-0">
+      <p className="text-lg font-black text-[#111111]">{value}</p>
+      <p className="mt-1 text-[10px] font-black uppercase leading-tight text-[#817781]">{label}</p>
+    </div>
+  );
+}
+
+function formatPublicCount(value: number | null) {
+  if (typeof value !== "number") return "-";
+  return new Intl.NumberFormat("en", { notation: value >= 10000 ? "compact" : "standard", maximumFractionDigits: 1 }).format(value);
 }
 
 function HowItWorks() {
@@ -763,7 +755,7 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="mt-8 rounded-[32px] bg-[#fff7fa] p-5 sm:p-6">
+    <section className="mx-3 mt-8 rounded-[28px] bg-[#fff7fa] p-4 sm:mx-0 sm:rounded-[32px] sm:p-6">
       <div>
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
@@ -802,7 +794,7 @@ function HowItWorks() {
 
 function Reviews() {
   return (
-    <section className="mt-8 rounded-[24px] bg-[#111111] p-4 text-white sm:rounded-[32px] sm:p-6">
+    <section className="mx-3 mt-8 rounded-[24px] bg-[#111111] p-4 text-white sm:mx-0 sm:rounded-[32px] sm:p-6">
       <div>
         <div className="mb-8 grid gap-4 rounded-[22px] border border-white/10 bg-white/[0.06] p-4 md:grid-cols-[0.8fr_1.2fr] md:items-center">
           <div>
@@ -870,7 +862,7 @@ function Reviews() {
 
 function UgcSection() {
   return (
-    <section className="mt-8 rounded-[24px] border border-[#d9efe7] bg-[#f7fffb] p-4 sm:rounded-[32px] sm:p-6">
+    <section className="mx-3 mt-8 rounded-[24px] border border-[#d9efe7] bg-[#f7fffb] p-4 sm:mx-0 sm:rounded-[32px] sm:p-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#009a63]">UGC</p>
@@ -914,7 +906,7 @@ function UgcSection() {
 
 function Faq() {
   return (
-    <section id="faq" className="mt-8 rounded-[32px] border border-[#ffd1df] bg-white p-5 sm:p-6">
+    <section id="faq" className="mx-3 mt-8 rounded-[28px] border border-[#ffd1df] bg-white p-4 sm:mx-0 sm:rounded-[32px] sm:p-6">
       <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff005c]">FAQ</p>
